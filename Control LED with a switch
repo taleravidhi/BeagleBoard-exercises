@@ -1,19 +1,17 @@
 var b = require('bonescript');
+b.pinMode('P9_42', b.INPUT);
+b.pinMode('P9_15', b.OUTPUT);
+setInterval(check,100);
 
-var outputPin = "P9_14";
-var inputPin = "P9_42";
-var state;
+function check(){
+b.digitalRead('P9_42', checkButton);
+}
 
-
-b.pinMode(inputPin, b.INPUT);
-b.pinMode(outputPin, b.OUTPUT);
-
-b.attachInterrupt(inputPin, true, b.CHANGE, buttonchange);
-
-function buttonChange(input) {
-    if(input.value == b.HIGH)
-            state = b.HIGH;
-        else
-           state = b.LOW;
-    b.digitalWrite(outputPin, state);
+function checkButton(x) {
+  if(x.value == 1){
+    b.digitalWrite('P9_15', b.HIGH);
+  }
+  else{
+    b.digitalWrite('P9_15', b.LOW);
+  }
 }
