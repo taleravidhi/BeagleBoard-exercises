@@ -1,0 +1,23 @@
+var b = require('bonescript');
+var led = "P9_21";
+var loopTime = 20;
+var duty_cycle=0;
+var increment = true;
+
+var loopTimer = setInterval(fadeLED, loopTime);
+
+function fadeLED()
+{
+    if(duty_cycle == 100 )
+        increment = false;
+    if(duty_cycle == 0)
+        increment = true;
+
+    if(increment == true)
+        duty_cycle = duty_cycle + 1;
+    else
+        duty_cycle = duty_cycle - 1;
+
+    console.log("duty_cycle = ",duty_cycle/100);
+    b.analogWrite(led,duty_cycle/100);
+}
